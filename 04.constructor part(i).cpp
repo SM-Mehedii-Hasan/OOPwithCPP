@@ -148,8 +148,9 @@ _____________________________Constructor Overloading____________________________
 #include<iostream>
 using namespace std;
 class Student{
+      public:
     string name;int rollno; float cgpa;
-    public:
+  
     Student(){
         name="unknown";rollno=0;cgpa=0;
     }
@@ -165,15 +166,30 @@ class Student{
     void display(){
         cout<<name<<" "<<rollno<<" "<<cgpa<<endl;
     }
+      Student(const Student &s) {
+        name = s.name;
+        rollno = s.rollno;
+        cgpa = s.cgpa;
+      
+    }
+    
 
 
 };
 int main(){
-    Student s1,s2("mehedi",10,3.00),s3(20,3.4,"hasan"),s4("adil",30);
+    Student s1,s2("mehedi",10,3.00),s3(20,3.4,"hasan"),s4("adil",30),s5;
     s1.display(); 
     s2.display();
     s3.display();
     s4.display();
+    s5=s2;
+    s5.name="s m mehedi";
+    s5.display();
+    Student s6(s5);
+    s6.name=" sabbir";
+    s6.display();
+
+
 
     
 }
