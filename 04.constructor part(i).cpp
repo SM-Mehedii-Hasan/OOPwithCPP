@@ -101,47 +101,79 @@ int main(){
 
 }
 _____________________________Constructor Overloading____________________________
+// #include<iostream>
+// using namespace std;
+// class Student{
+//     string name;
+//     int rollno;
+//     int age;
+//     public:
+//        Student(){
+           
+//         cout<<"default constructor is called."<<endl;
+//          name="unknown";
+//         rollno=0;
+//         age=0;
+    
+//     }
+//     Student(string n,int r,int a){
+   
+//         cout<<"parameterized constructor is called"<<endl;
+//                 name=n;
+//         rollno=r;
+//         age=a;
+     
+//     }
+//        Student(string n,int r){
+   
+//         cout<<"parameterized constructor is called"<<endl;
+//                 name=n;
+//         rollno=r;
+       
+     
+//     }
+ 
+    
+//     void display(){
+//         cout<<name<<" "<<rollno<<" "<<age<<endl;
+//     }
+// };
+// int main(){
+//     Student s,s1("mehedi",100,24),s2("hasan",20); 
+//     s.display(); 
+//     s1.display();
+//     s2.display();
+
+// }
 #include<iostream>
 using namespace std;
 class Student{
-    string name;
-    int rollno;
-    int age;
+    string name;int rollno; float cgpa;
     public:
-       Student(){
-           
-        cout<<"default constructor is called."<<endl;
-         name="unknown";
-        rollno=0;
-        age=0;
-    
+    Student(){
+        name="unknown";rollno=0;cgpa=0;
     }
-    Student(string n,int r,int a){
-   
-        cout<<"parameterized constructor is called"<<endl;
-                name=n;
-        rollno=r;
-        age=a;
-     
+    Student(string n,int r,float c){
+        name=n;rollno=r;cgpa=c;
     }
-       Student(string n,int r){
-   
-        cout<<"parameterized constructor is called"<<endl;
-                name=n;
-        rollno=r;
-       
-     
+    Student(int r,float c,string n){
+         name=n;rollno=r;cgpa=c;
     }
- 
-    
+    Student(string n,int r){
+        name=n;rollno=r;
+    }
     void display(){
-        cout<<name<<" "<<rollno<<" "<<age<<endl;
+        cout<<name<<" "<<rollno<<" "<<cgpa<<endl;
     }
+
+
 };
 int main(){
-    Student s,s1("mehedi",100,24),s2("hasan",20); 
-    s.display(); 
-    s1.display();
+    Student s1,s2("mehedi",10,3.00),s3(20,3.4,"hasan"),s4("adil",30);
+    s1.display(); 
     s2.display();
+    s3.display();
+    s4.display();
 
+    
 }
