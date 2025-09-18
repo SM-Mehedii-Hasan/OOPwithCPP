@@ -193,3 +193,92 @@ int main(){
 
     
 }
+// _____________________________________________________________________________________________
+#include <iostream>
+using namespace std;
+
+class Student {
+public:
+    string name;
+    int age;
+
+    // Constructor
+    Student(string n, int a) : name(n), age(a) {
+        cout << "Constructor called for " << name << endl;
+    }
+
+    // Copy constructor
+    Student(const Student &s) {
+        cout << "Copy constructor called for " << s.name << endl;
+        name = s.name;
+        age = s.age;
+    }
+
+    // Copy assignment operator
+    Student& operator=(const Student &s) {
+        cout << "Copy assignment operator called" << endl;
+        if (this != &s) {
+            name = s.name;
+            age = s.age;
+        }
+        return *this;
+    }
+
+    void display() {
+        cout << "Name: " << name << ", Age: " << age << endl;
+    }
+};
+
+int main() {
+    // Original object
+    Student s1("Mehedi", 25);
+    s1.display();
+
+    // Copy constructor called
+    Student s2 = s1;   // Initialization
+    s2.display();
+
+    // Another copy constructor call
+    Student s3(s1);    // Direct initialization
+    s3.display();
+
+    // Copy assignment operator
+    Student s4("Hasan", 22);
+    s4.display();
+
+    s4 = s1;           // Assignment after creation
+    s4.display();
+
+    return 0;
+}
+This code shows clearly:
+____________________________________________
+Constructor → when creating a new object normally.
+Copy constructor → when initializing a new object with another object.
+Copy assignment operator → when assigning values to an existing object.
+
+  ______________________________________________this keyword_______________________________________________________
+  
+#include<iostream> 
+using namespace std;
+class Student{
+    string name;
+    int roll;
+    float cgpa;
+    public:
+    // Student(string name,int roll,float cgpa){
+    //    this->name=name;
+    //     this-> roll=roll;
+    //     this-> cgpa=cgpa;
+    // }
+    Student(string name, int roll, float cgpa) 
+    : name(name), roll(roll), cgpa(cgpa) {}
+    void display(){
+        cout<<name<<" "<<roll<<" "<<cgpa<<endl;
+    }
+};
+int main(){
+    Student s1("mehedi",100,3.09);
+    s1.display();
+
+}
