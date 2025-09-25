@@ -57,6 +57,9 @@ public:
 
     int capacity() { return cap; }
     int size() { return s; }
+    int get(int index){
+        return arr[index];
+    }
 
     ~DynamicArray()
     {
@@ -79,6 +82,8 @@ int main()
     d.add(5);
     cout << d.size() << " " << d.capacity() << endl;
     d.print();
+     cout<<d.get(4)<<endl;
+      cout<<d.get(3)<<endl;
     d.remove();
     cout << d.size() << " " << d.capacity() << endl;
     d.remove();
@@ -87,4 +92,5 @@ int main()
     cout << d.size() << " " << d.capacity() << endl;
     d.remove();
     cout << d.size() << " " << d.capacity() << endl;
+   
 }
