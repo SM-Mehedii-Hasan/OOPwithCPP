@@ -17,3 +17,34 @@ ________________________________________________________________________________
 | **1. Compile-time (Static) Polymorphism** | The function call is resolved at **compile time**.                         | Function Overloading, Operator Overloading |
 | **2. Run-time (Dynamic) Polymorphism**    | The function call is resolved at **run time** using **virtual functions**. | Virtual Function (Method Overriding)       |
 
+
+
+Compile-Time Polymorphism in C++ (also known as Static Polymorphism)
+🧩 Definition:
+Compile-time polymorphism occurs when the function call is resolved at compile time.
+That means the compiler knows which function to call during compilation — before the program runs.
+✅ Ways to Achieve Compile-Time Polymorphism:
+There are two main ways to implement it in C++:
+Function Overloading
+Operator Overloading
+⚡ Why It's Called Compile-Time Polymorphism:
+Because:
+The function or operator to be invoked is decided by the compiler.
+There’s no need for runtime binding (like in virtual functions).
+
+
+
+🔹 Runtime Polymorphism in C++ (also known as Dynamic Polymorphism)
+🧩 Definition:
+Runtime polymorphism occurs when the function call is resolved at runtime, not during compilation.
+This allows one interface (like a base class pointer or reference) to represent different types of objects.
+✅ Achieved By:
+👉 Function Overriding using the virtual keyword.
+
+| Feature      | Compile-time Polymorphism       | Runtime Polymorphism     |
+| ------------ | ------------------------------- | ------------------------ |
+| Binding Time | Compile Time                    | Run Time                 |
+| Achieved By  | Function & Operator Overloading | Function Overriding      |
+| Performance  | Faster                          | Slightly Slower          |
+| Keyword Used | —                               | `virtual` keyword        |
+| Example      | `add(int, int)`, `operator+()`  | `virtual void display()` |
