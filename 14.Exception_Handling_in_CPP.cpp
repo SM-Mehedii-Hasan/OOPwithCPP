@@ -16,6 +16,66 @@
 //     When a throw statement executes,
 //     the program jumps to the nearest matching catch block to handle the exception.
 
+
+#include <iostream>
+#include <stdexcept>  // for standard exceptions
+using namespace std;
+
+class BankAccount {
+    string name;
+    double balance;
+
+public:
+    BankAccount(string name, double balance) {
+        if (balance < 0)
+            throw invalid_argument("❌ Initial balance cannot be negative!");
+        this->name = name;
+        this->balance = balance;
+    }
+
+    void deposit(double amount) {
+        if (amount <= 0)
+            throw invalid_argument("❌ Deposit amount must be positive!");
+        balance += amount;
+        cout << "✅ " << amount << " deposited successfully." << endl;
+    }
+
+    void withdraw(double amount) {
+        if (amount <= 0)
+            throw invalid_argument("❌ Withdrawal amount must be positive!");
+        if (amount > balance)
+            throw runtime_error("❌ Insufficient funds for withdrawal!");
+        balance -= amount;
+        cout << "✅ " << amount << " withdrawn successfully." << endl;
+    }
+
+    double getBalance() const { return balance; }
+};
+
+int main() {
+    try {
+        BankAccount acc("Mehedi", 5000);
+
+        acc.deposit(1000);      // OK
+        acc.withdraw(7000);     // ❌ Will throw runtime_error
+        cout << "Balance: " << acc.getBalance() << endl;
+    }
+    catch (const invalid_argument &e) {
+        cout << "Invalid Argument: " << e.what() << endl;
+    }
+    catch (const runtime_error &e) {
+        cout << "Runtime Error: " << e.what() << endl;
+    }
+    catch (const exception &e) { // catch-all for any std::exception
+        cout << "Other Exception: " << e.what() << endl;
+    }
+
+    cout << "🏁 Program ended safely." << endl;
+    return 0;
+}
+
+// ___________________________________________________________________________________________________
+
 #include <iostream>
 using namespace std;
 
