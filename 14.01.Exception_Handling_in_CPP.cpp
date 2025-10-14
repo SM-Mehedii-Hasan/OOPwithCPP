@@ -19,6 +19,29 @@
 #include <iostream>
 using namespace std;
 
+int main() {
+    int a, b;
+    cout << "Enter two numbers: ";
+    cin >> a >> b;
+
+    try {
+        if (b == 0) {
+            throw "Division by zero error!";  // throwing an exception
+        }
+        cout << "Result = " << a / b << endl;
+    }
+    catch (const char *msg) {  // catching the exception
+        cout << "Exception caught: " << msg << endl;
+    }
+
+    cout << "Program continues normally..." << endl;
+    return 0;
+}
+// _______________________________________________________________________________________________
+
+#include <iostream>
+using namespace std;
+
 class Customer {
     string name;
     double balance;
@@ -70,3 +93,42 @@ int main() {
     cout << "Program continues normally..." << endl;
     return 0;
 }
+// ________________________________________________________________________
+
+
+// #include<iostream>
+// using namespace std;
+// int main(){
+//     int x;cin>>x;
+//     try{
+//         if(x==0) throw(x);
+//         if(x==100) throw(" x=100");
+//         if(x==5) throw(5.5);
+
+//     }
+//     catch(const int x){
+//         cout<<" x= "<<x<<endl;
+//     }
+//     catch(const char* msg){
+//         cout<<msg<<endl;
+//     }
+//     catch(const double x){
+//         cout<<"x="<<x<<endl;
+//     }
+// }
+// _________________________________________________________
+// #include<iostream>
+// using namespace std;
+// int main(){
+//     int x;cin>>x;
+//     try{
+//         if(x==0) throw(x);
+//         if(x==100) throw(" x=100");
+//         if(x==5) throw(5.5);
+
+//     }
+  
+//     catch(...){
+//         cout<<"found exception"<<endl;
+//     }
+// }
