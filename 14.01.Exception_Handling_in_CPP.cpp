@@ -132,3 +132,61 @@ int main() {
 //         cout<<"found exception"<<endl;
 //     }
 // }
+// ________________________________________________________________________________________________
+#include <iostream>
+#include <string>
+using namespace std;
+
+class BankAccount {
+    string name;
+    double balance;
+
+public:
+    BankAccount(string name, double balance) {
+        this->name = name;
+        this->balance = balance;
+    }
+
+    void deposit(double amount) {
+        if (amount <= 0)
+            throw "Deposit amount must be positive!";  // string exception
+        balance += amount;
+        cout << "Deposited: " << amount << " | New balance: " << balance << endl;
+    }
+
+    void withdraw(double amount) {
+        if (amount < 0)
+            throw "Withdraw amount must be positive!"; // string exception
+        if (amount > balance)
+            throw balance;                             // double exception (remaining balance)
+        balance -= amount;
+        cout << "Withdrawn: " << amount << " | Remaining balance: " << balance << endl;
+    }
+};
+
+int main() {
+    BankAccount acc("Mehedi Hasan", 5000.0);
+
+    try {
+        acc.deposit(1000);     // ✅ Valid
+        acc.withdraw(7000);    // ❌ Throws double (not enough balance)
+        acc.deposit(-200);     // ❌ Throws string
+    }
+
+    // Specific exception handlers
+    catch (const char *msg) {       // String exception
+        cout << "Error: " << msg << endl;
+    }
+    catch (double balanceLeft) {    // Double exception
+        cout << "Error: Insufficient funds! Available balance: " << balanceLeft << endl;
+    }
+
+    // Fallback handler
+    catch (...) {
+        cout << "An unknown error occurred!" << endl;
+    }
+
+    cout << "✅ Program continues normally..." << endl;
+    return 0;
+}
+
