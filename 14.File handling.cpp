@@ -204,3 +204,124 @@ while (getline(source, line))
     dest << line << endl;
 source.close();
 dest.close();
+
+
+_________________________________________________________________________________________________________
+#include<iostream>
+#include<fstream>
+using namespace std ;
+int main(){
+    ofstream fout;
+    fout.open("zoom.txt");
+    fout<<"Hello Mehedi";
+    fout.close();
+}
+_____________________________________
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    ifstream fin("zoom.txt");
+    if (!fin) {
+        cout << "Error opening file!" << endl;
+        return 1;
+    }
+
+    char c;
+    while (fin.get(c)) {  // ✅ safer: reads until EOF automatically
+        cout << c;
+    }
+
+    fin.close();
+    return 0;
+}
+
+_______________________________________________________
+#include <iostream>
+#include<vector>
+#include<algorithm>
+#include <fstream>
+using namespace std;
+
+int main() {
+    vector<int>arr;
+    cout<<"enter:";
+    for(int i=0;i<5;i++) {
+       int x; cin>>x;
+       arr.push_back(x);
+       
+    }
+    ofstream fout;
+    fout.open("zero.txt");
+    fout<<"Original data:\n";
+    for(int i=0;i<5;i++){
+        fout<<arr[i]<<" ";
+    }
+    sort(arr.begin(),arr.end());
+    fout<<"\nAfter sorted:\n";
+    for(int i=0;i<5;i++){
+        fout<<arr[i]<<" ";
+    }
+    fout.close();
+  
+}
+______________________________________________________________
+🔹 Slightly improved version
+
+Here’s a cleaner version that:
+
+Uses constructor form for file stream
+
+Checks if file opened successfully
+
+Uses a range-based for loop for simplicity
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <fstream>
+using namespace std;
+
+int main() {
+    vector<int> arr;
+    cout << "Enter 5 integers: ";
+    for (int i = 0; i < 5; i++) {
+        int x;
+        cin >> x;
+        arr.push_back(x);
+    }
+
+    ofstream fout("zero.txt"); // directly open in constructor
+    if (!fout) {
+        cout << "Error opening file!" << endl;
+        return 1;
+    }
+
+    fout << "Original data:\n";
+    for (int num : arr)
+        fout << num << " ";
+
+    sort(arr.begin(), arr.end());
+
+    fout << "\nAfter sorted:\n";
+    for (int num : arr)
+        fout << num << " ";
+
+    fout.close();
+
+    cout << "Data written successfully to zero.txt ✅" << endl;
+    return 0;
+}
+
+🔹 Bonus: To read back and show file contents
+
+If you want to read from the file again after writing:
+
+ifstream fin("zero.txt");
+string line;
+cout << "\nFile content:\n";
+while (getline(fin, line)) {
+    cout << line << endl;
+}
+fin.close();
