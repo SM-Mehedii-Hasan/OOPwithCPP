@@ -277,3 +277,163 @@ int main() {
     Pair<int, string> p(1, "Apple");
     p.show();
 }
+// ============================================================================
+// 🎯 MULTIPLE TYPE PARAMETER CLASS TEMPLATE IN C++
+// ============================================================================
+// This program demonstrates how to define and use a class template
+// with multiple type parameters (T1, T2, T3).
+// It shows how templates enable writing generic and reusable code.
+// ============================================================================
+
+#include <iostream>
+using namespace std;
+
+// ============================================================================
+// 🔹 CLASS TEMPLATE DEFINITION
+// ----------------------------------------------------------------------------
+// `template <typename T1, typename T2, typename T3>`
+// → Declares a class that can work with three different data types.
+//
+// This allows creating objects that store and manipulate mixed-type data.
+// ============================================================================
+
+template <typename T1, typename T2, typename T3>
+class Geek
+{
+public:
+    T1 x;  // First data member (can be of any type)
+    T2 y;  // Second data member (can be of any type)
+    T3 z;  // Third data member (can be of any type)
+
+    // ------------------------------------------------------------------------
+    // 🔸 Constructor
+    // Initializes x, y, z with the given values using a member initializer list.
+    // ------------------------------------------------------------------------
+    Geek(T1 val1, T2 val2, T3 val3) : x(val1), y(val2), z(val3)
+    {
+    }
+
+    // ------------------------------------------------------------------------
+    // 🔸 Member Function: getValues()
+    // Prints the values of x, y, and z to the console.
+    // ------------------------------------------------------------------------
+    void getValues()
+    {
+        cout << x << " " << y << " " << z;
+    }
+};
+
+// ============================================================================
+// 🔹 MAIN FUNCTION
+// ----------------------------------------------------------------------------
+// Demonstrates how to create template objects with different type combinations.
+// ============================================================================
+
+int main()
+{
+    // ------------------------------------------------------------------------
+    // 🧩 Example 1: Using (int, double, string)
+    // Creates an object with three different data types.
+    // ------------------------------------------------------------------------
+    Geek<int, double, string> intDoubleStringGeek(10, 3.14, "Hello");
+
+    // ------------------------------------------------------------------------
+    // 🧩 Example 2: Using (char, float, bool)
+    // Creates another object with different type parameters.
+    // ------------------------------------------------------------------------
+    Geek<char, float, bool> charFloatBoolGeek('A', 5.67f, true);
+
+    // ------------------------------------------------------------------------
+    // 🔸 Display Values
+    // Prints the stored data for both objects.
+    // ------------------------------------------------------------------------
+    intDoubleStringGeek.getValues();
+    cout << endl;
+    charFloatBoolGeek.getValues();
+
+    return 0;
+}
+
+// ============================================================================
+// 💡 OUTPUT:
+// 10 3.14 Hello
+// A 5.67 1
+// -----------------------------------------------------------------------------
+// Note:
+// - 'true' is printed as '1' by default.
+// - This demonstrates how templates make the class reusable for any data type.
+// ============================================================================
+
+
+
+
+
+
+
+🔹 1. Template type parameters (T1, T2, T3)
+template <typename T1, typename T2, typename T3>
+
+
+These are placeholders. They don’t have a type yet — they represent types you’ll decide later.
+
+You use them whenever you want your class or function to work with multiple types without rewriting code.
+
+Example:
+
+template <typename T1, typename T2>
+class Pair {
+    T1 first;
+    T2 second;
+public:
+    Pair(T1 a, T2 b) : first(a), second(b) {}
+    void show() { cout << first << ", " << second << endl; }
+};
+
+int main() {
+    Pair<int, string> p(10, "Hello");  // T1 = int, T2 = string
+    p.show();
+}
+
+
+✅ Here, T1 and T2 are mandatory placeholders. You must tell C++ what types to use.
+
+🔹 2. Default template types (= int, = string, = float)
+template <typename T1 = int, typename T2 = string, typename T3 = float>
+
+
+The = int (etc.) sets a default type for that template parameter.
+
+This means if you don’t specify a type when creating an object, C++ will automatically use the default.
+
+Example:
+
+template <typename T1 = int, typename T2 = string>
+class Pair {
+    T1 first;
+    T2 second;
+public:
+    Pair(T1 a, T2 b) : first(a), second(b) {}
+    void show() { cout << first << ", " << second << endl; }
+};
+
+int main() {
+    Pair<> p1(5, "Hi");          // Uses defaults: T1=int, T2=string
+    Pair<double, char> p2(3.14, 'A'); // Overrides defaults
+    p1.show();
+    p2.show();
+}
+
+🔹 3. When to use each
+| Feature                                     | When to use                                                                                              | Why                                                      |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| **Template type parameters (`T1, T2, T3`)** | When you want your class or function to be **generic** and work with **any type**.                       | Provides **flexibility** for multiple data types.        |
+| **Default template types (`= int`, etc.)**  | When you want to make some type parameters **optional**, so users **don’t have to always specify them**. | Makes **code easier to use** without losing flexibility. |
+🔹 4. Analogy
+
+Think of it like a recipe:
+
+T1, T2, T3 → Ingredients you must choose.
+
+= int, = string, = float → Default ingredients if you don’t choose.
+
+You can override them, but you don’t have to.
