@@ -1,107 +1,162 @@
-// In C++, a friend function is a special function that is not a member of a class
-//  but has access to the class’s private and protected members.
-
-// It’s mainly used when two or more classes need to share private data.
-// 🔹 Syntax
-// class ClassName {
-// private:
-//     int data;
-
-// public:
-//     friend void showData(ClassName obj);  // declaration of friend function
-// };
-
-
-
+// ============================================================================
+// 🧠 FRIEND FUNCTION AND FRIEND CLASS — COMPLETE EXAMPLES IN ONE FILE
+// ============================================================================
+// In C++, a friend function is a special non-member function that has access
+// to the private and protected members of a class. It is mainly used when
+// two or more classes need to share private data.
+// ============================================================================
 
 #include <iostream>
 using namespace std;
 
+// ============================================================================
+// 🔹 Example 1: Simple Friend Function
+// ============================================================================
+// Demonstrates how a friend function can access private data of one class.
 class Box {
 private:
-    int width;
+    int width;  // Private data member
 
 public:
     Box(int w) {
         width = w;
     }
 
-    // Declare friend function
+    // Declare friend function (can access private members)
     friend void showWidth(Box b);
 };
 
-// Definition of friend function
+// Definition of friend function (outside class)
 void showWidth(Box b) {
-    cout << "Width of box: " << b.width << endl; // Accessing private member
+    // ✅ Accessing private data directly using object
+    cout << "Width of box: " << b.width << endl;
 }
 
+// ============================================================================
+// 🔹 Example 2: Friend Function between TWO classes
+// ============================================================================
+// Demonstrates how a single friend function can access private data from
+// two different classes.
+class Y;  // Forward declaration
+
+class X {
+    int data;  // private member
+public:
+    void setValue(int value) {
+        data = value;
+    }
+
+    // Declare friend function (shared with class Y)
+    friend void add(X, Y);
+};
+
+class Y {
+    int num;  // private member
+public:
+    void setValue(int value) {
+        num = value;
+    }
+
+    // Declare same friend function again (for access to Y's private members)
+    friend void add(X, Y);
+};
+
+// Friend function definition
+void add(X o1, Y o2) {
+    // ✅ Can access private data of both classes
+    cout << "Sum of private data (X + Y): " << o1.data + o2.num << endl;
+}
+
+// ============================================================================
+// 🔹 Example 3: Friend Function Returning Object (Complex Numbers)
+// ============================================================================
+// Demonstrates how a friend function can return an object after processing.
+class Complex {
+    int a, b;  // private members
+public:
+    void setNumber(int n1, int n2) {
+        a = n1;
+        b = n2;
+    }
+
+    void printNumber() {
+        cout << a << " + " << b << "i" << endl;
+    }
+
+    // Friend function declaration
+    friend Complex ComplexSum(Complex o1, Complex o2);
+};
+
+// Definition of friend function
+Complex ComplexSum(Complex o1, Complex o2) {
+    Complex o3;
+    // ✅ Direct access to private data members of both objects
+    o3.setNumber((o1.a + o2.a), (o1.b + o2.b));
+    return o3;
+}
+
+// ============================================================================
+// 💡 MAIN FUNCTION — Runs all the examples
+// ============================================================================
 int main() {
+    cout << "========== Example 1: Simple Friend Function ==========\n";
     Box box1(10);
-    showWidth(box1);
+    showWidth(box1);  // Call friend function
+
+    cout << "\n========== Example 2: Friend Function Between Two Classes ==========\n";
+    X a1;
+    a1.setValue(3);
+    Y b1;
+    b1.setValue(5);
+    add(a1, b1);  // Call friend function accessing both classes
+
+    cout << "\n========== Example 3: Friend Function Returning Object ==========\n";
+    Complex c1, c2, sum;
+    c1.setNumber(3, 5);
+    c2.setNumber(3, 4);
+
+    c1.printNumber();
+    c2.printNumber();
+
+    sum = ComplexSum(c1, c2);  // Call friend function
+    cout << "Sum of complex numbers: ";
+    sum.printNumber();
+
     return 0;
 }
 
+// ============================================================================
+// 🧾 PROPERTIES OF FRIEND FUNCTION IN C++
+// ============================================================================
+// 1️⃣ Not a member of the class
+//      - Declared inside but defined outside the class.
+// 2️⃣ Cannot be called using an object
+//      - Example: c1.ComplexSum() ❌  |  ComplexSum(c1, c2) ✅
+// 3️⃣ Has access to private and protected members
+//      - Because it’s declared with `friend`.
+// 4️⃣ Takes class objects as arguments
+//      - Uses objects to access their private data.
+// 5️⃣ Can be declared anywhere inside the class
+//      - Public, private, or protected — access level doesn’t matter.
+// 6️⃣ Cannot access members directly by name
+//      - Must use object name, e.g., o1.a not just 'a'.
+// 7️⃣ Not inherited
+//      - Friendship is not passed to derived classes.
+// 8️⃣ Not affected by access specifiers
+//      - Its access does not depend on where it’s declared.
+// 9️⃣ Can be friend to multiple classes
+//      - The same function can access multiple classes.
+// 10️⃣ Friendship is not mutual
+//      - If A is friend of B, B isn’t automatically a friend of A.
+// 11️⃣ Friendship is not transitive
+//      - If A is friend of B, and B is friend of C, A is not friend of C.
+// 12️⃣ Can be a friend function or friend class
+//      - Entire classes can be declared as friends using `friend class ClassName;`
+// 13️⃣ Used for operator overloading
+//      - Often used for overloading operators like +, ==, <<, >>.
+// ============================================================================
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-#include<iostream>
-using namespace std;
-class Complex{
-    int a,b;
-    public:
-    void setNumber(int n1,int n2){
-        a=n1;
-        b=n2;
-    }
-    void printNumber(){
-        cout<<a<<" + "<<b<<"i"<<endl;;
-    }
-    //Below line means thatnon member - sumComplex function 
-     //is allowed to do anything with my private parts(members)
-    friend Complex ComplexSum(Complex o1,Complex o2);
-
-};
-Complex ComplexSum(Complex o1,Complex o2){
-    Complex o3;
-    o3.setNumber((o1.a+o2.a),(o1.b+o2.b));
-    return o3;
-
-}
-int main(){
-    Complex c1,c2;
-    c1.setNumber(3,5);
-    c2.setNumber(3,4);
-    c1.printNumber();
-    c2.printNumber();
-    Complex sum=ComplexSum(c1,c2);
-    sum.printNumber();
-}
-
-
-/*
-Properties of friend function:
-1. Not in the scope of class 
-2.Since it is not in the scope of the class ,
-it cannot be called from the object of that class .
- c1.sumComplex()==Invalid
- 3. Can be invoked without the help of any object
- 4.Usually contains the object as arguments
- 5. Can be declared  inside public or private section of the class
- 6.It cannot access the members directly by their names and need 
- need object_name.member_name to access any member.
-
-*/
 🌟 All Properties of Friend Function in C++
 | #      | Property                                                             | Explanation                                                                                                                                                |
 | ------ | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
